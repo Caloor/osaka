@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Function to display usage
+show_usage() {
+    echo "Usage: ./docker-start.sh [up|down|build|logs]"
+    echo "  up    - Start the containers"
+    echo "  down  - Stop the containers"
+    echo "  build - Rebuild the containers"
+    echo "  logs  - Show container logs"
+}
+
+case "$1" in
+    up)
+        docker-compose up -d
+        ;;
+    down)
+        docker-compose down
+        ;;
+    build)
+        docker-compose build --no-cache
+        docker-compose up -d
+        ;;
+    logs)
+        docker-compose logs -f
+        ;;
+    *)
+        show_usage
+        exit 1
+        ;;
+esac
