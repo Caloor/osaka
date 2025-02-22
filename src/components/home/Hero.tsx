@@ -1,160 +1,145 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
-import { gsap } from 'gsap';
+import Head from 'next/head';
 
-const images = [
-  '/images/hero/restaurant-1.jpg',
-  '/images/hero/restaurant-2.jpg',
-  '/images/hero/restaurant-3.jpg'
-];
-
-const placeholderImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%25" height="100%25" viewBox="0 0 800 400"%3E%3Crect width="100%25" height="100%25" fill="%23667788"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24px" fill="%23ffffff"%3EImage placeholder%3C/text%3E%3C/svg%3E';
+const heroImage = 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=2000&auto=format&fit=crop';
 
 export default function Hero() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    // Animation initiale
-    gsap.from('.hero-text', {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power3.out'
-    });
-
-    // Animation du fond
-    gsap.to('.hero-background', {
-      backgroundPosition: '50% 60%',
-      duration: 20,
-      repeat: -1,
-      yoyo: true,
-      ease: 'none'
-    });
-
-    // Changement d'image automatique
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        height: '90vh',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Background Image */}
-      <Box
-        className="hero-background"
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `url(${images[currentImage]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: '50% 50%',
-          zIndex: 0,
-        }}
-      />
-      
-      {/* Overlay */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
-          zIndex: 1,
-        }}
-      />
+    <>
+      <Head>
+        <link rel="preload" as="image" href={heroImage} />
+        <style>
+          {`
+            .fade-in-up {
+              opacity: 0;
+              transform: translateY(100px);
+              animation: fadeInUp 1s ease-out forwards;
+            }
 
-      {/* Content */}
-      <Container 
-        maxWidth="lg"
+            .delay-1 {
+              animation-delay: 0.2s;
+            }
+
+            .delay-2 {
+              animation-delay: 0.4s;
+            }
+
+            .delay-3 {
+              animation-delay: 0.6s;
+            }
+
+            @keyframes fadeInUp {
+              0% {
+                opacity: 0;
+                transform: translateY(100px);
+              }
+              100% {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}
+        </style>
+      </Head>
+      <Box
         sx={{
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
           position: 'relative',
-          zIndex: 2,
+          height: '90vh',
+          overflow: 'hidden',
         }}
       >
         <Box
           sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `url(${heroImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bgcolor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 1,
+          }}
+        />
+
+        <Container
+          maxWidth="lg"
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            position: 'relative',
+            zIndex: 2,
             color: 'white',
-            textAlign: 'center',
-            width: '100%',
           }}
         >
-          <Typography 
-            variant="h1" 
-            className="hero-text"
+          <Typography
+            variant="h1"
+            className="fade-in-up delay-1"
             sx={{
               fontSize: { xs: '2.5rem', md: '4rem' },
-              fontWeight: 700,
-              marginBottom: 2,
-              textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+              fontWeight: 'bold',
+              mb: 2,
             }}
           >
             Une Expérience Culinaire Unique
           </Typography>
-          <Typography 
-            variant="h4" 
-            className="hero-text"
+          <Typography
+            variant="h2"
+            className="fade-in-up delay-2"
             sx={{
-              fontSize: { xs: '1.2rem', md: '1.8rem' },
-              marginBottom: 4,
-              fontWeight: 300,
-              textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+              fontSize: { xs: '1.5rem', md: '2rem' },
+              mb: 4,
+              maxWidth: '800px',
             }}
           >
-            Découvrez nos trois restaurants d'exception
+            Découvrez l'art du Teppanyaki dans une ambiance raffinée et chaleureuse
           </Typography>
-          <Box className="hero-text">
-            <Button 
-              variant="contained" 
-              color="secondary"
+          <Box className="fade-in-up delay-3">
+            <Button
+              variant="contained"
+              color="primary"
               size="large"
               href="/menu"
               sx={{
-                marginRight: 2,
-                padding: '12px 32px',
-                fontSize: '1.1rem'
-              }}
-            >
-              Notre Menu
-            </Button>
-            <Button 
-              variant="outlined" 
-              size="large"
-              href="/reservation"
-              sx={{
-                padding: '12px 32px',
+                mr: 2,
                 fontSize: '1.1rem',
-                borderColor: 'white',
-                color: 'white',
-                '&:hover': {
-                  borderColor: 'secondary.main',
-                  backgroundColor: 'secondary.main'
-                }
+                py: 1.5,
+                px: 4,
               }}
             >
-              Réserver
+              Découvrir Notre Carte
+            </Button>
+            <Button
+              variant="outlined"
+              color="inherit"
+              size="large"
+              href="/contact"
+              sx={{
+                fontSize: '1.1rem',
+                py: 1.5,
+                px: 4,
+              }}
+            >
+              Réserver une Table
             </Button>
           </Box>
-        </Box>
-      </Container>
-    </Box>
+        </Container>
+      </Box>
+    </>
   );
 }

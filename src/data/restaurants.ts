@@ -25,7 +25,7 @@ export interface MenuItem {
 export const restaurants: Restaurant[] = [
   {
     id: 1,
-    name: "Le Bistrot Parisien",
+    name: "Osaka Teppanyaki",
     location: "15 rue de la Paix, Paris",
     contact: {
       phone: "+33 1 23 45 67 89",

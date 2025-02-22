@@ -36,7 +36,7 @@ chmod +x docker-start.sh
 
 2. Construire et démarrer les conteneurs
 ```bash
-./docker-start.sh build
+./o build
 ```
 
 L'application sera accessible à :

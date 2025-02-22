@@ -13,7 +13,7 @@ case "$1" in
     up)
         docker-compose up -d
         ;;
-    down)
+    stop)
         docker-compose down
         ;;
     build)

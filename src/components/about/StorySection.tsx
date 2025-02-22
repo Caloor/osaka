@@ -1,20 +1,22 @@
 'use client';
 
 import { Box, Typography, Grid } from '@mui/material';
-import Image from 'next/image';
 
 export default function StorySection() {
   return (
     <Grid container spacing={6} sx={{ mb: 8 }}>
       <Grid item xs={12} md={6}>
-        <Box sx={{ position: 'relative', width: '100%', height: '400px' }}>
-          <Image
-            src="https://images.unsplash.com/photo-1542528180-a1208c5169a5?w=800&h=800&fit=crop&q=80"
-            alt="Notre histoire"
-            fill
-            style={{ objectFit: 'cover', borderRadius: '8px' }}
-          />
-        </Box>
+        <Box 
+          sx={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '400px',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1542528180-a1208c5169a5?w=1600&auto=format&fit=crop)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            borderRadius: '8px',
+          }}
+        />
       </Grid>
       <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>

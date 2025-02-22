@@ -1,97 +1,101 @@
 'use client';
 
-import { useEffect } from 'react';
 import { Box, Typography, Container } from '@mui/material';
-import { gsap } from 'gsap';
-import Image from 'next/image';
+import Head from 'next/head';
+
+const menuHeaderImage = 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2000&auto=format&fit=crop';
 
 export default function MenuHeader() {
-  useEffect(() => {
-    gsap.from('.menu-header-animation', {
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power3.out'
-    });
-  }, []);
-
   return (
-    <Box sx={{ 
-      position: 'relative',
-      width: '100%',
-      height: { xs: '200px', sm: '300px' },
-      marginBottom: { xs: 4, sm: 6 },
-      overflow: 'hidden'
-    }}>
-      {/* Background Image */}
-      <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-        <Image
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&h=600&fit=crop&crop=center&q=80"
-          alt="Menu Header"
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: 'cover' }}
-        />
-      </Box>
+    <>
+      <Head>
+        <link rel="preload" as="image" href={menuHeaderImage} />
+        <style>
+          {`
+            .fade-in-up {
+              opacity: 0;
+              transform: translateY(50px);
+              animation: fadeInUp 0.8s ease-out forwards;
+            }
 
-      {/* Overlay */}
-      <Box sx={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4))',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+            .delay-1 {
+              animation-delay: 0.1s;
+            }
+
+            .delay-2 {
+              animation-delay: 0.3s;
+            }
+
+            @keyframes fadeInUp {
+              0% {
+                opacity: 0;
+                transform: translateY(50px);
+              }
+              100% {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}
+        </style>
+      </Head>
+      <Box sx={{ 
+        position: 'relative',
+        width: '100%',
+        height: { xs: '300px', sm: '400px' },
+        marginBottom: { xs: 4, sm: 6 },
+        overflow: 'hidden'
       }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography 
-              variant="h2" 
-              component="h1" 
-              className="menu-header-animation"
-              sx={{
-                color: 'white',
-                fontSize: { xs: '2rem', sm: '3rem' },
-                fontWeight: 600,
-                marginBottom: 2,
-                position: 'relative',
-                textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: '-10px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '60px',
-                  height: '3px',
-                  backgroundColor: 'secondary.main'
-                }
-              }}
-            >
-              Notre Carte
-            </Typography>
-            <Typography 
-              variant="h5" 
-              className="menu-header-animation"
-              sx={{
-                color: 'white',
-                fontSize: { xs: '1.1rem', sm: '1.5rem' },
-                fontWeight: 400,
-                textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                maxWidth: '600px',
-                margin: '0 auto'
-              }}
-            >
-              Découvrez nos plats signatures et spécialités
-            </Typography>
-          </Box>
-        </Container>
+        <Box sx={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: `url(${menuHeaderImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }} />
+
+        <Box sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5))',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <Container maxWidth="lg">
+            <Box sx={{ textAlign: 'center', color: 'white' }}>
+              <Typography 
+                variant="h1" 
+                className="fade-in-up delay-1"
+                sx={{ 
+                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
+                  fontWeight: 'bold',
+                  mb: 2
+                }}
+              >
+                Notre Carte
+              </Typography>
+              <Typography 
+                variant="h2" 
+                className="fade-in-up delay-2"
+                sx={{ 
+                  fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
+                  maxWidth: '800px',
+                  margin: '0 auto'
+                }}
+              >
+                Une sélection raffinée de spécialités japonaises préparées devant vous
+              </Typography>
+            </Box>
+          </Container>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
