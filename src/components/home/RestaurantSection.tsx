@@ -78,22 +78,47 @@ export default function RestaurantSection() {
           variant="h2"
           align="center"
           className="section-title"
-          gutterBottom
+          sx={{
+            mb: 3,
+            fontFamily: 'var(--font-playfair)',
+            fontSize: { xs: '2rem', sm: '2.5rem' },
+            fontWeight: 600,
+            position: 'relative',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '-10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '60px',
+              height: '3px',
+              background: 'linear-gradient(90deg, #c41e3a, #ff4d6d)',
+              borderRadius: '3px'
+            }
+          }}
         >
           Nos Restaurants
         </Typography>
 
         <Typography 
           variant="body1" 
+          align="center"
           className="section-description"
-          sx={{ mb: 6 }}
+          sx={{ 
+            mb: { xs: 10, sm: 12 },
+            maxWidth: '800px',
+            mx: 'auto',
+            color: '#555',
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.8,
+            px: { xs: 2, sm: 0 }
+          }}
         >
-          Fondée en 1985 par la famille Chen, Asian Food est né d'une passion pour les saveurs authentiques de l'Asie. Ce qui a commencé comme un petit restaurant familial s'est transformé en trois établissements prestigieux, chacun célébrant la diversité de la cuisine asiatique tout en y apportant sa touche unique.
-          <br /><br />
-          Au fil des années, nous avons tissé des liens étroits avec des producteurs locaux et des fournisseurs à travers l'Asie, sélectionnant les meilleurs ingrédients pour créer des plats qui racontent l'histoire de notre héritage culinaire. Notre engagement envers l'excellence culinaire et l'art de l'hospitalité asiatique reste au cœur de notre philosophie.
+          Depuis 1985, Asian Food vous invite à découvrir l'authenticité de la cuisine asiatique à travers ses trois établissements parisiens. 
+          Notre passion pour les saveurs d'Asie et notre engagement envers la qualité se reflètent dans chaque plat que nous servons.
         </Typography>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ mt: { xs: 2, sm: 4 } }}>
           {restaurants.map((restaurant, index) => (
             <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
               <Card 
